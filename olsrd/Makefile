@@ -6,13 +6,13 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=olsrd
-PKG_SOURCE_DATE:=2021-06-12
+PKG_SOURCE_DATE:=2021-11-06
 PKG_RELEASE:=$(AUTORELEASE)
 
 PKG_SOURCE_PROTO:=git
 PKG_SOURCE_URL:=https://github.com/OLSR/olsrd.git
-PKG_SOURCE_VERSION:=4973feb538b5b98b9d8ac2f8f474202f6d73de78
-PKG_MIRROR_HASH:=705ff34d7ce13f59004b7fc91d852b8a6982538b58a78f4dfa552e212c1026eb
+PKG_SOURCE_VERSION:=665051a845464c0f95edb81432104dac39426f79
+PKG_MIRROR_HASH:=6040b08b73690a7f5d53d153c29f386b87a041a5712af72bea816588bc0e2483
 
 PKG_MAINTAINER:=Nick Hainke <vincent@systemli.org>
 PKG_BUILD_PARALLEL:=0
@@ -34,7 +34,7 @@ endef
 define Package/olsrd
   $(call Package/olsrd/template)
   MENU:=1
-  DEPENDS:=+libpthread +libgps
+  DEPENDS:=+libpthread
 endef
 
 define Package/olsrd/conffiles
@@ -123,7 +123,7 @@ endef
 
 define Package/olsrd-mod-pud
   $(call Package/olsrd/template)
-  DEPENDS:=olsrd
+  DEPENDS:=olsrd +libgps
   TITLE:=Position Update Distribution plugin
 endef
 
@@ -181,7 +181,7 @@ MAKE_FLAGS+= \
 	DESTDIR="$(PKG_INSTALL_DIR)" \
 	STRIP="true" \
 	INSTALL_LIB="true" \
-	SUBDIRS="arprefresh bmf dot_draw dyn_gw dyn_gw_plain httpinfo filtergw jsoninfo netjson mdns nameservice p2pd pgraph quagga secure sgwdynspeed txtinfo watchdog"
+	SUBDIRS="arprefresh bmf dot_draw dyn_gw dyn_gw_plain httpinfo filtergw jsoninfo netjson mdns nameservice p2pd pgraph pud quagga secure sgwdynspeed txtinfo watchdog"
 
 define Build/Compile
 	$(call Build/Compile/Default,all)
@@ -323,7 +323,7 @@ $(eval $(call BuildPackage,olsrd-mod-mdns))
 $(eval $(call BuildPackage,olsrd-mod-nameservice))
 $(eval $(call BuildPackage,olsrd-mod-p2pd))
 $(eval $(call BuildPackage,olsrd-mod-pgraph))
-#$(eval $(call BuildPackage,olsrd-mod-pud))
+$(eval $(call BuildPackage,olsrd-mod-pud))
 $(eval $(call BuildPackage,olsrd-mod-quagga))
 $(eval $(call BuildPackage,olsrd-mod-secure))
 $(eval $(call BuildPackage,olsrd-mod-sgwdynspeed))
