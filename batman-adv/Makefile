@@ -18,6 +18,8 @@ PKG_SOURCE_URL:=https://downloads.open-mesh.org/batman/releases/batman-adv-$(PKG
 PKG_LICENSE:=GPL-2.0
 PKG_EXTMOD_SUBDIRS=net/batman-adv
 
+PKG_BUILD_PARALLEL:=1
+
 STAMP_CONFIGURED_DEPENDS := $(STAGING_DIR)/usr/include/mac80211-backport/backport/autoconf.h
 
 include $(INCLUDE_DIR)/kernel.mk
